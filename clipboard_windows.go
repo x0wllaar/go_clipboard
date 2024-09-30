@@ -108,6 +108,13 @@ func writeAll(text string) error {
 		return err
 	}
 
+	// Return early if text is empty
+	// Otherwise it crashes for whatever reason
+	// See https://github.com/atotto/clipboard/issues/68
+	if len(text) == 0 {
+		return nil
+	}
+
 	data := syscall.StringToUTF16(text)
 
 	// "If the hMem parameter identifies a memory object, the object must have
